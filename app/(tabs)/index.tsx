@@ -1,74 +1,134 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React, { useCallback } from "react";
+import Animated, { FadeIn } from "react-native-reanimated";
+import {
+  FlatList,
+  Keyboard,
+  ListRenderItem,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import {
+  PlanetCard,
+  ErrorScreen,
+  LoaderScreen,
+  SearchBar,
+  SortButton,
+} from "@components";
+import { Planet } from "@types";
+import { APP_STRINGS, COLORS_APP } from "@constants";
+import { TouchableWithoutFeedback } from "react-native";
+import { useListPlanets } from "@/hooks";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+export default function PlanetListScreen() {
+  const {
+    error,
+    filteredAndSortedData,
+    isLoading,
+    refetch,
+    setIsAsc,
+    setSearchTerm,
+    searchTerm,
+    isAsc,
+  } = useListPlanets();
 
-export default function HomeScreen() {
+  const renderItem = useCallback<ListRenderItem<Partial<Planet>>>(
+    ({ item, index }) => (
+      <Animated.View entering={FadeIn.delay(index * 80).duration(300)}>
+        <PlanetCard planet={item} />
+      </Animated.View>
+    ),
+    []
+  );
+
+  const renderContent = () => {
+    const isEmptyResult = filteredAndSortedData.length === 0;
+    const hasSearch = searchTerm.trim().length > 0;
+
+    if (isEmptyResult) {
+      const message = hasSearch
+        ? `Oops! We couldn't find any planets matching "${searchTerm}".`
+        : "There are no planets to show right now.";
+
+      return (
+        <Animated.View
+          entering={FadeIn.duration(400)}
+          style={styles.emptyContainer}
+        >
+          <Text style={styles.emptyText}>{message}</Text>
+        </Animated.View>
+      );
+    }
+
+    return (
+      <FlatList
+        data={filteredAndSortedData}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id!}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        contentContainerStyle={styles.contentContainerStyle}
+        showsVerticalScrollIndicator={false}
+      />
+    );
+  };
+
+  if (isLoading) return <LoaderScreen />;
+  if (error) return <ErrorScreen onRetry={refetch} />;
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.title}>{APP_STRINGS.home.title}</Text>
+        <View style={styles.containerSearch}>
+          <SearchBar
+            value={searchTerm}
+            onChange={setSearchTerm}
+            customStyles={{ flex: 1 }}
+          />
+          <SortButton
+            isAsc={isAsc}
+            onToggle={() => setIsAsc((prev) => !prev)}
+          />
+        </View>
+        {renderContent()}
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  contentContainerStyle: {
+    paddingBottom: 24,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  container: {
+    flex: 1,
+    backgroundColor: COLORS_APP.primary,
+    paddingHorizontal: 14,
+    paddingTop: 16,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  containerSearch: {
+    flexDirection: "row",
+    gap: 6,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: "700",
+    color: COLORS_APP.titleCard,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  separator: {
+    height: 20,
+  },
+  emptyContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 40,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: COLORS_APP.label, // Gris neutro
+    textAlign: "center",
   },
 });

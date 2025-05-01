@@ -1,39 +1,30 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { StatusBar } from "react-native";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { APP_ROUTES, COLORS_APP } from "@constants";
+import { FavoriteContextProvider } from "@/providers";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+const queryClient = new QueryClient();
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+const screenOptions = {
+  headerShown: false,
+};
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <FavoriteContextProvider>
+        <StatusBar
+          animated
+          networkActivityIndicatorVisible
+          backgroundColor={COLORS_APP.black}
+          barStyle="light-content"
+        />
+        <Stack>
+          <Stack.Screen name={APP_ROUTES.TABS} options={screenOptions} />
+          <Stack.Screen name={APP_ROUTES.NOT_FOUND} />
+        </Stack>
+      </FavoriteContextProvider>
+    </QueryClientProvider>
   );
 }
