@@ -128,3 +128,17 @@ expo build:ios
 ```
 
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+
+## Preview
+
+#### Home Screen
+
+![App Preview](./assets/images/home.jpeg)
+
+#### Favorite Screen
+
+![App Preview](./assets/images/favorite.jpeg)
+
+#### Planet Details Screen
+
+![App Preview](./assets/images/details.jpeg)
