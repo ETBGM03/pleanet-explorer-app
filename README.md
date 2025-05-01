@@ -1,50 +1,130 @@
-# Welcome to your Expo app 👋
+# Planet Explorer App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Plane tExplorer is a modern mobile application built with React Native and Expo, designed to explore and discover information about planets and celestial bodies.
 
-## Get started
+## 🚀 Technical Stack
 
-1. Install dependencies
+### Core Technologies
 
-   ```bash
-   npm install
-   ```
+- **React Native**: Version 0.76.9
+- **Expo**: Version 52.0.46
+- **TypeScript**: Version 5.3.3
+- **React**: Version 18.3.1
 
-2. Start the app
+### Key Dependencies
 
-   ```bash
-    npx expo start
-   ```
+- **Expo Router**: For file-based routing
+- **React Query**: For data fetching and state management
+- **Axios**: For HTTP requests
+- **Async Storage**: For local data persistence
+- **Reanimated**: For smooth animations
 
-In the output, you'll find options to open the app in a
+## Technical decisions
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Expo was used for development as it allows me to quickly create apps with React Native without many configuration complications.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- Expo Router was chosen, as it is a library that enables easy, scalable, and universal app-level navigation [iOS, Android, web].
 
-## Get a fresh project
+- Clean architecture is implemented.
 
-When you're ready, run:
+- Containers and component presentation are implemented.
+
+## 🏗️ Project Structure
+
+```
+├── app/                 # Main application routes and screens
+├── components/          # Reusable UI components
+├── constants/           # Application constants and configurations
+├── providers/           # Context providers and global state
+├── services/            # API services and external integrations
+├── types/               # TypeScript type definitions
+├── adapters/            # Data adapters and transformers
+├── lib/                 # Utility functions and helpers
+├── assets/              # Static assets (images, fonts, etc.)
+└── hooks/               # Custom React hooks
+```
+
+## 🛠️ Development Setup
+
+### Prerequisites
+
+- Node.js (LTS version recommended)
+- npm or yarn
+- Expo CLI
+- iOS Simulator (for Mac) or Android Studio (for Android development)
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
-npm run reset-project
+git clone [repository-url]
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Start the development server:
+
+```bash
+npx expo start
+# or
+npm start
+# or
+yarn start
+```
+
+### Available Scripts
+
+- `npm start`: Start the Expo development server
+- `npm run android`: Run on Android device/emulator
+- `npm run ios`: Run on iOS simulator
+- `npm run web`: Run on web browser
+- `npm test`: Run tests
+- `npm run lint`: Run linter
+
+## 📱 Features
+
+- Modern and responsive UI
+- Smooth animations and transitions
+- Efficient data fetching with React Query
+- Type-safe development with TypeScript
+- Cross-platform compatibility (iOS, Android, Web)
+
+## 🔧 Technical Decisions
+
+### Architecture
+
+- **File-based Routing**: Using Expo Router for intuitive navigation
+- **Component-based Architecture**: Following React best practices
+- **Type Safety**: Full TypeScript implementation for better code quality
+- **State Management**: Using React Query for server state and Context API for global state
+
+### Performance
+
+- **Optimized Assets**: Properly sized and compressed images
+- **Efficient Data Fetching**: Using React Query for caching and background updates
+
+### Development Experience
+
+- **TypeScript**: For better developer experience and code quality
+- **ESLint**: For code style consistency
+- **Jest**: For testing
+- **Expo**: For simplified development and deployment
+
+## 📦 Deployment
+
+The application can be built and deployed using Expo's build system:
+
+```bash
+expo build:android
+# or
+expo build:ios
 ```
 
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
