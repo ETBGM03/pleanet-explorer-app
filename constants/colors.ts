@@ -12,4 +12,6 @@ export const COLORS_APP = {
   label: "#6B7280",
   titleCard: "#1E3A8A",
   planetNameDetail: "#1F2937",
+  bgInput: "#E5E7EB",
+  errorText: "#B91C1C",
 };

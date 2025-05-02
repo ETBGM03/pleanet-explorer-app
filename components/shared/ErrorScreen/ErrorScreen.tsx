@@ -1,3 +1,4 @@
+import { COLORS_APP } from "@/constants";
 import React from "react";
 import { Pressable, StyleSheet, View, Text } from "react-native";
 
@@ -19,17 +20,17 @@ const styles = StyleSheet.create({
   errorText: {
     marginBottom: 8,
     fontSize: 16,
-    color: "#B91C1C",
+    color: COLORS_APP.errorText,
   },
 
   retryText: {
     fontSize: 16,
-    color: "#3B82F6",
+    color: COLORS_APP.textColor,
     fontWeight: "bold",
     padding: 8,
   },
   retryButton: {
-    backgroundColor: "#D1D5DB",
+    backgroundColor: COLORS_APP.border,
     borderRadius: 100,
   },
 });

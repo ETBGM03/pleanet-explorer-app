@@ -1,3 +1,4 @@
+import { COLORS_APP } from "@/constants";
 import { StyleProp, StyleSheet, TextInput, TextStyle } from "react-native";
 
 export const SearchBar = ({
@@ -20,13 +21,13 @@ export const SearchBar = ({
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: "#E5E7EB",
-    color: "#111827",
+    backgroundColor: COLORS_APP.bgInput,
+    color: COLORS_APP.textColor,
     padding: 12,
     borderRadius: 8,
     marginBottom: 16,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: "#D1D5DB",
+    borderColor: COLORS_APP.border,
   },
 });

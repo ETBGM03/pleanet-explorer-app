@@ -1,3 +1,4 @@
+import { COLORS_APP } from "@/constants";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 export const SortButton = ({
@@ -18,16 +19,16 @@ export const SortButton = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#E5E7EB",
+    backgroundColor: COLORS_APP.bgInput,
     padding: 12,
     borderRadius: 8,
     marginBottom: 16,
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#D1D5DB",
+    borderColor: COLORS_APP.border,
   },
   buttonText: {
-    color: "#000",
+    color: COLORS_APP.black,
     fontSize: 16,
   },
 });

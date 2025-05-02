@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import { useFavorites } from "@/providers";
 import { COLORS_APP } from "@/constants";
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS_APP.white,
     borderRadius: 16,
     overflow: "hidden",
-    borderColor: "#E5E7EB",
+    borderColor: COLORS_APP.border,
     borderWidth: 1,
   },
   link: {
@@ -128,9 +128,9 @@ const styles = StyleSheet.create({
   label: {
     width: 90,
     fontWeight: "600",
-    color: "#6B7280", // gris medio
+    color: COLORS_APP.label,
   },
   value: {
-    color: "#374151", // gris oscuro pero no negro
+    color: COLORS_APP.textColor,
   },
 });
