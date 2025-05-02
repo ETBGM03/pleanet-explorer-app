@@ -129,6 +129,12 @@ expo build:ios
 
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
+## Install Android APK
+
+```bash
+https://expo.dev/accounts/seft/projects/PlanetExplorer/builds/892d3d24-fdf8-4116-9cd5-ca3823709523
+```
+
 ## Preview
 
 #### Home Screen
